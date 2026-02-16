@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khalid Ismail — iOS Developer</title>
+    <meta name="description" content="Khalid Ismail — iOS Developer specializing in Swift, SwiftUI, and native Apple platform experiences.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌘</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- Ambient background glow -->
+    <div class="ambient-glow"></div>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <span class="logo-bracket">{</span>KI<span class="logo-bracket">}</span>
+            </a>
+            <div class="nav-links">
+                <a href="#about">about</a>
+                <a href="#skills">expertise</a>
+                <a href="#work">work</a>
+                <a href="#contact" class="nav-cta">contact</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-badge reveal">
+                    <span class="badge-dot"></span> Available for work
+                </div>
+                <h1 class="hero-name reveal">
+                    Khalid<br>Ismail<span class="hero-accent">.</span>
+                </h1>
+                <div class="hero-role reveal">
+                    <span class="role-prefix">&gt;</span>
+                    <span id="typing-text"></span><span class="cursor">_</span>
+                </div>
+                <p class="hero-desc reveal">
+                    Building fluid, intuitive, and high-performance<br>
+                    iOS applications with Swift & SwiftUI.
+                </p>
+                <div class="hero-actions reveal">
+                    <a href="#work" class="btn-primary">
+                        <span>View Work</span>
+                        <i class="fas fa-arrow-down"></i>
+                    </a>
+                    <a href="#contact" class="btn-ghost">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-decoration">
+                <div class="code-block reveal">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-filename">Portfolio.swift</span>
+                    </div>
+                    <pre class="code-content"><span class="kw">struct</span> <span class="type">Developer</span> {
+    <span class="kw">let</span> name = <span class="str">"Khalid Ismail"</span>
+    <span class="kw">let</span> role = <span class="str">"iOS Engineer"</span>
+    <span class="kw">let</span> skills = [<span class="str">"Swift"</span>, <span class="str">"SwiftUI"</span>]
+    
+    <span class="kw">var</span> passion: <span class="type">String</span> {
+        <span class="str">"Crafting native experiences"</span>
+    }
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="section">
+            <div class="section-inner">
+
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <h2>I build things<br>for <span class="text-gradient">Apple platforms</span>.</h2>
+                        <p>
+                            I'm a focused iOS developer with a deep passion for the Apple ecosystem. 
+                            I craft native experiences that feel perfectly at home on iPhone and iPad — 
+                            combining clean architecture with polished UI design to create apps that 
+                            users love to interact with.
+                        </p>
+                    </div>
+                    <div class="about-stats reveal">
+                        <div class="stat">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Published Apps</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Swift</span>
+                            <span class="stat-label">Primary Language</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">SwiftUI</span>
+                            <span class="stat-label">UI Framework</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="section">
+            <div class="section-inner">
+
+                <div class="skills-grid reveal">
+                    <div class="skill-item stagger-child">
+                        <div class="skill-header">
+                            <i class="fab fa-app-store-ios"></i>
+                            <h3>iOS Development</h3>
+                        </div>
+                        <p>Swift, SwiftUI, UIKit, Combine, Core Data, WidgetKit, StoreKit</p>
+                    </div>
+                    <div class="skill-item stagger-child">
+                        <div class="skill-header">
+                            <i class="fas fa-layer-group"></i>
+                            <h3>Architecture</h3>
+                        </div>
+                        <p>MVVM, Clean Architecture, Protocol-Oriented Programming, Dependency Injection</p>
+                    </div>
+                    <div class="skill-item stagger-child">
+                        <div class="skill-header">
+                            <i class="fas fa-tools"></i>
+                            <h3>Tools & Workflow</h3>
+                        </div>
+                        <p>Xcode, Instruments, Git, TestFlight, CI/CD, App Store Connect</p>
+                    </div>
+                    <div class="skill-item stagger-child">
+                        <div class="skill-header">
+                            <i class="fas fa-palette"></i>
+                            <h3>Design</h3>
+                        </div>
+                        <p>Human Interface Guidelines, Accessibility, Figma, Responsive Layouts</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work / Projects -->
+        <section id="work" class="section">
+            <div class="section-inner">
+                <div class="work-content reveal">
+                    <h2>My apps are live on the<br><span class="text-gradient">App Store</span>.</h2>
+                    <p>I design, build, and ship native iOS applications — from concept to launch. Check out my published work.</p>
+                    <a href="https://apps.apple.com/tr/developer/khaled-alismail/id1839000759" class="btn-primary" target="_blank">
+                        <span>View on App Store</span>
+                        <i class="fab fa-app-store"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section section-contact">
+            <div class="section-inner">
+
+                <div class="contact-content reveal">
+                    <h2>Let's build<br>something <span class="text-gradient">great</span>.</h2>
+                    <p>Have a project in mind? I'd love to hear about it.</p>
+                </div>
+                <form class="contact-form reveal" action="https://formsubmit.co/khaledesmail914@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="New Portfolio Submission!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://khalid102205.github.io/my-site/">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-submit">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p>Designed & built by Khalid Ismail</p>
+            <p class="footer-year">&copy; 2026</p>
+        </div>
+    </footer>
+</body>
+</html>
