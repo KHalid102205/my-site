@@ -1,104 +1,78 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ========== Smooth Scrolling ==========
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const el = document.querySelector(targetId);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-        });
+    const header = document.querySelector('.site-header');
+    const menuButton = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.nav-menu');
+
+    const closeMenu = () => {
+        menu?.classList.remove('open');
+        menuButton?.classList.remove('active');
+        menuButton?.setAttribute('aria-expanded', 'false');
+        menuButton?.setAttribute('aria-label', 'Open navigation');
+        document.body.classList.remove('menu-open');
+    };
+
+    menuButton?.addEventListener('click', () => {
+        const willOpen = !menu.classList.contains('open');
+        menu.classList.toggle('open', willOpen);
+        menuButton.classList.toggle('active', willOpen);
+        menuButton.setAttribute('aria-expanded', String(willOpen));
+        menuButton.setAttribute('aria-label', willOpen ? 'Close navigation' : 'Open navigation');
+        document.body.classList.toggle('menu-open', willOpen);
     });
 
-    // ========== Cycling Typing Effect ==========
-    const roles = [
-        "iOS Developer",
-        "Swift Engineer",
-        "SwiftUI Enthusiast",
-        "App Craftsman",
-    ];
-    const typingEl = document.getElementById('typing-text');
-    let roleIdx = 0;
-    let charIdx = 0;
-    let deleting = false;
-
-    function type() {
-        const role = roles[roleIdx];
-        let speed;
-
-        if (deleting) {
-            typingEl.textContent = role.substring(0, charIdx - 1);
-            charIdx--;
-            speed = 40;
-        } else {
-            typingEl.textContent = role.substring(0, charIdx + 1);
-            charIdx++;
-            speed = 80;
-        }
-
-        if (!deleting && charIdx === role.length) {
-            deleting = true;
-            speed = 2000;
-        } else if (deleting && charIdx === 0) {
-            deleting = false;
-            roleIdx = (roleIdx + 1) % roles.length;
-            speed = 400;
-        }
-
-        setTimeout(type, speed);
-    }
-
-    if (typingEl) setTimeout(type, 600);
-
-    // ========== Scroll Reveal with Stagger ==========
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-
-                // Stagger children
-                const children = entry.target.querySelectorAll('.stagger-child');
-                children.forEach((child, i) => {
-                    child.style.transitionDelay = `${i * 0.12}s`;
-                    child.classList.add('active');
-                });
-
-                observer.unobserve(entry.target); // Only animate once
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -60px 0px'
+    menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMenu();
     });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 20);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealItems = document.querySelectorAll('.reveal');
 
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+        revealItems.forEach(item => item.classList.add('visible'));
+    } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
 
-    // ========== Navbar Scroll Effect ==========
-    const navbar = document.querySelector('.navbar');
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-
-        if (currentScroll > 100) {
-            navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.06)';
-        } else {
-            navbar.style.borderBottomColor = 'transparent';
-        }
-
-        lastScroll = currentScroll;
-    });
-
-    // ========== Mobile Menu Toggle ==========
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('nav-open');
-            menuBtn.classList.toggle('active');
+        revealItems.forEach((item, index) => {
+            item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+            revealObserver.observe(item);
         });
     }
+
+    document.querySelector('#year').textContent = new Date().getFullYear();
+
+    // A small, visible REST/JSON integration using the public GitHub API.
+    const githubStatus = document.querySelector('#github-status');
+    fetch('https://api.github.com/users/KHalid102205/repos?per_page=100', {
+        headers: { Accept: 'application/vnd.github+json' }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('GitHub request failed');
+            return response.json();
+        })
+        .then(repositories => {
+            const publicRepos = repositories.filter(repo => !repo.fork);
+            const languages = [...new Set(publicRepos.map(repo => repo.language).filter(Boolean))];
+            const updated = publicRepos
+                .map(repo => new Date(repo.updated_at))
+                .sort((a, b) => b - a)[0];
+            const updatedText = updated
+                ? updated.toLocaleDateString('en', { month: 'short', year: 'numeric' })
+                : 'recently';
+
+            githubStatus.textContent = `${publicRepos.length} public repositories · ${languages.slice(0, 3).join(', ') || 'Multiple technologies'} · Updated ${updatedText}`;
+        })
+        .catch(() => {
+            githubStatus.textContent = 'Public projects in web development, programming, and computer science.';
+        });
 });
